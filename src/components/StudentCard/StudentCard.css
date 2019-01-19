@@ -8,7 +8,6 @@
 
 .student-picture-container {
     display: flex;
-    align-items: center;
     justify-content: center;
 }
 
@@ -40,6 +39,10 @@
     font-weight: 300;
     margin-left: 15px;
     margin-bottom: 2px;
+}
+
+.student-test-score-container {
+    margin-top: 10px;
 }
 
 .student-toggle {

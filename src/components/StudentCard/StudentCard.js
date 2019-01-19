@@ -10,7 +10,7 @@ class StudentCard extends Component {
 			gradeArr.reduce((a, b) => {
 				return Number(a) + Number(b);
 			}) / gradeArr.length
-		).toFixed(2);
+		).toFixed(3);
 	}
 
 	// RENDERS TOGGLE BUTTON DEPENDING ON STATE
@@ -25,6 +25,18 @@ class StudentCard extends Component {
 		this.setState({
 			toggled: !this.state.toggled
 		});
+	}
+
+	renderTestScores() {
+		let scoresJsx = this.props.grades.map((grade, i) => {
+			return (
+				<p className="student-description-content">{`Test ${i +
+					1}: ${grade}%`}</p>
+			);
+		});
+		if (this.state.toggled) {
+			return scoresJsx;
+		}
 	}
 
 	render() {
@@ -49,8 +61,11 @@ class StudentCard extends Component {
 							Skill: {this.props.skill}
 						</p>
 						<p className="student-description-content">
-							Average: {this.calculateAverage(this.props.grades)}
+							Average: {this.calculateAverage(this.props.grades)}%
 						</p>
+						<div className="student-test-score-container">
+							{this.renderTestScores()}
+						</div>
 					</div>
 				</div>
 				<div className="student-toggle" onClick={() => this.handleToggle()}>
