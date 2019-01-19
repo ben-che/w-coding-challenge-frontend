@@ -1,6 +1,6 @@
 .student-card {
     display: flex;
-    width: 100%;
+    width: calc(100% - 40px);
     flex-direction: row;
     padding: 30px 20px;
     border-bottom: thin solid #ddd;
@@ -40,4 +40,12 @@
     font-weight: 300;
     margin-left: 15px;
     margin-bottom: 2px;
+}
+
+.student-toggle {
+    cursor: pointer;
+    font-size: 40px;
+    margin-left: auto;
+    color: #555;
+    font-weight: 600;
 }
