@@ -1,0 +1,43 @@
+.student-card {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    padding: 30px 20px;
+    border-bottom: thin solid #ddd;
+}
+
+.student-picture-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.student-picture {
+    border-radius: 50%;
+    border: thin solid #ddd;
+    height: 120px;
+    width: 120px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center
+}
+
+.student-description-container {
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.student-description-title {
+    text-transform: uppercase;
+    font-size: 35px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.student-description-content {
+    font-size: 14px;
+    font-weight: 300;
+    margin-left: 15px;
+    margin-bottom: 2px;
+}
