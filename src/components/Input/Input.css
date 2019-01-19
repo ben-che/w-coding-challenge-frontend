@@ -1,0 +1,14 @@
+.input-field {
+    height: 40px;
+    width: calc(100% - 10px);
+    border: 0;
+    border-bottom: thin solid #ccc;
+    padding-left: 10px;
+    font-size: 20px;
+    font-family: 'Roboto';
+}
+
+.input-field:active, .input-field:focus {
+    border-bottom: thin solid grey;
+    outline: none !important;
+}
