@@ -7,6 +7,7 @@ import { Input } from './components/Input';
 class App extends Component {
 	state = {
 		searchValue: '',
+		tagSearchValue: '',
 		tagValue: {}
 	};
 
@@ -56,6 +57,19 @@ class App extends Component {
 		);
 	}
 
+	// RENDERS TAG SEARCH
+	renderTagSearchInput() {
+		return (
+			<Input
+				value={this.state.tagSearchValue}
+				placeholder="Search by Tag"
+				onChange={(e) => {
+					this.handleSearchByTag(e);
+				}}
+			/>
+		);
+	}
+
 	// SEARCH STUDENT NAMES (FIRST AND LAST)
 	searchName() {
 		let matches = [];
@@ -77,6 +91,33 @@ class App extends Component {
 		});
 	}
 
+	// SEARCHES BY TAGS
+	searchTag() {
+		let matches = [];
+
+		if (this.state.tagSearchValue === '') {
+			matches = this.state.students;
+		} else {
+			for (let i = 0; i < this.state.students.length; i++) {
+				if (this.state.students[i].tags !== undefined) {
+					for (let j = 0; j < this.state.students[i].tags.length; j++) {
+						if (
+							this.state.students[i].tags[j].includes(
+								this.state.tagSearchValue
+							)
+						) {
+							matches.push(this.state.students[i]);
+						}
+					}
+				}
+			}
+		}
+
+		this.setState({
+			renderedStudents: matches
+		});
+	}
+
 	// CONTROLLED COMPONENT STATE FUNCTIONS
 	// ON CHANGE FUNCTION FOR SEARCH FIELD
 	handleSearchByName(e) {
@@ -86,6 +127,17 @@ class App extends Component {
 			},
 			() => {
 				this.searchName();
+			}
+		);
+	}
+
+	handleSearchByTag(e) {
+		this.setState(
+			{
+				tagSearchValue: e.target.value
+			},
+			() => {
+				this.searchTag();
 			}
 		);
 	}
@@ -108,6 +160,7 @@ class App extends Component {
 		tagForStudent[studentId] = '';
 
 		this.setState({
+			students: updatedStudents,
 			renderedStudents: updatedStudents,
 			tagValue: tagForStudent
 		});
@@ -136,6 +189,7 @@ class App extends Component {
 		return (
 			<div className="AppContainer">
 				{this.renderSearchInput()}
+				{this.renderTagSearchInput()}
 				{this.renderAllStudents()}
 			</div>
 		);

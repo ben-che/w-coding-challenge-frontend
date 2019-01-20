@@ -17,7 +17,7 @@ class StudentCard extends Component {
 	// RENDERS TOGGLE BUTTON DEPENDING ON STATE
 	renderToggle() {
 		if (this.state.toggled) {
-			return '--';
+			return '-';
 		}
 		return '+';
 	}
