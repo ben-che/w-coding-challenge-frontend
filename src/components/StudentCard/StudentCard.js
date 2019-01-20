@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './StudentCard.css';
+import { TagInput } from '../Input';
 
 class StudentCard extends Component {
 	state = { toggled: false };
@@ -27,15 +28,45 @@ class StudentCard extends Component {
 		});
 	}
 
+	// RENDERS TEST SCORES IF TOGGLE IS OPEN
 	renderTestScores() {
 		let scoresJsx = this.props.grades.map((grade, i) => {
 			return (
-				<p className="student-description-content">{`Test ${i +
-					1}: ${grade}%`}</p>
+				<p
+					key={i + grade}
+					className="student-description-content"
+				>{`Test ${i + 1}: ${grade}%`}</p>
 			);
 		});
 		if (this.state.toggled) {
 			return scoresJsx;
+		}
+	}
+
+	// RENDERS ADD TAG INPUT FIELD IS TOGGLE IS OPEN
+	renderTagInput() {
+		if (this.state.toggled) {
+			return (
+				<div className="student-tag-input-container">
+					<TagInput
+						placeholder="Add a tag"
+						handleBlur={this.props.handleTagAdd}
+						handleChange={this.props.handleTagChange}
+						value={this.props.tagInputValue}
+					/>
+				</div>
+			);
+		}
+	}
+
+	// RENDERS TAGS
+	renderTags() {
+		if (!!this.props.tags && this.state.toggled) {
+			return this.props.tags.map((tag, i) => (
+				<p className="student-tag" key={tag + i}>
+					{tag}
+				</p>
+			));
 		}
 	}
 
@@ -65,6 +96,10 @@ class StudentCard extends Component {
 						</p>
 						<div className="student-test-score-container">
 							{this.renderTestScores()}
+							<div className="student-tag-container">
+								{this.renderTags()}
+							</div>
+							{this.renderTagInput()}
 						</div>
 					</div>
 				</div>

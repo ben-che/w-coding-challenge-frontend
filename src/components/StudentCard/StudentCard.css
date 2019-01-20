@@ -52,3 +52,26 @@
     color: #555;
     font-weight: 600;
 }
+
+.student-tag-input-container {
+    display: flex;
+    width: 200px;
+}
+
+.student-tag-container {
+    display: flex;
+    margin: 10px;
+    width: 90%;
+    flex-wrap: wrap;
+}
+
+.student-tag {
+    display:flex;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 300;
+    background: #bbb;
+    border-radius: 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}

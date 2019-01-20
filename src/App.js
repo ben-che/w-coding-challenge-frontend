@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
 import StudentCard from './components/StudentCard';
-import Input from './components/Input';
+import { Input } from './components/Input';
 
 class App extends Component {
 	state = {
-		searchValue: ''
+		searchValue: '',
+		tagValue: {}
 	};
 
 	componentDidMount() {
@@ -26,7 +27,19 @@ class App extends Component {
 	// RENDERS ALL STUDENT CARDS ON DOM
 	renderAllStudents() {
 		return this.state.renderedStudents.map((student) => {
-			return <StudentCard key={student.id} {...student} />;
+			return (
+				<StudentCard
+					key={student.id}
+					{...student}
+					handleTagAdd={(e) => {
+						this.handleTagAdd(e, student.id);
+					}}
+					handleTagChange={(e) => {
+						this.handleTagChange(e, student.id);
+					}}
+					tagInputValue={this.state.tagValue[student.id]}
+				/>
+			);
 		});
 	}
 
@@ -64,6 +77,7 @@ class App extends Component {
 		});
 	}
 
+	// CONTROLLED COMPONENT STATE FUNCTIONS
 	// ON CHANGE FUNCTION FOR SEARCH FIELD
 	handleSearchByName(e) {
 		this.setState(
@@ -73,6 +87,40 @@ class App extends Component {
 			() => {
 				this.searchName();
 			}
+		);
+	}
+
+	// ADD TAGS
+	handleTagAdd(e, studentId) {
+		let updatedStudents = this.state.students;
+
+		for (let i = 0; i < updatedStudents.length; i++) {
+			if (studentId == updatedStudents[i].id) {
+				if (updatedStudents[i].tags === undefined) {
+					updatedStudents[i].tags = [e.target.value];
+				} else {
+					updatedStudents[i].tags.push(e.target.value);
+				}
+			}
+		}
+
+		let tagForStudent = this.state.tagValue;
+		tagForStudent[studentId] = '';
+
+		this.setState({
+			renderedStudents: updatedStudents,
+			tagValue: tagForStudent
+		});
+	}
+
+	handleTagChange(e, studentId) {
+		let tagForStudent = this.state.tagValue;
+		tagForStudent[studentId] = e.target.value;
+		this.setState(
+			{
+				tagValue: tagForStudent
+			},
+			console.log(this.state.tagValue)
 		);
 	}
 
