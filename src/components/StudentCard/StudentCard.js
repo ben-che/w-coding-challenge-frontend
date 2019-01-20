@@ -53,6 +53,7 @@ class StudentCard extends Component {
 						handleBlur={this.props.handleTagAdd}
 						handleChange={this.props.handleTagChange}
 						value={this.props.tagInputValue}
+						listenForSubmit={this.props.listenForSubmit}
 					/>
 				</div>
 			);

@@ -107,18 +107,17 @@ class App extends Component {
 							)
 						) {
 							matches.push(this.state.students[i]);
+							break;
 						}
 					}
 				}
 			}
 		}
-
 		this.setState({
 			renderedStudents: matches
 		});
 	}
 
-	// CONTROLLED COMPONENT STATE FUNCTIONS
 	// ON CHANGE FUNCTION FOR SEARCH FIELD
 	handleSearchByName(e) {
 		this.setState(
@@ -131,6 +130,7 @@ class App extends Component {
 		);
 	}
 
+	// CONTROLLED INPUT FOR TAG SEARCH INPUT
 	handleSearchByTag(e) {
 		this.setState(
 			{
@@ -146,43 +146,42 @@ class App extends Component {
 	handleTagAdd(e, studentId) {
 		let updatedStudents = this.state.students;
 
-		for (let i = 0; i < updatedStudents.length; i++) {
-			if (studentId == updatedStudents[i].id) {
-				if (updatedStudents[i].tags === undefined) {
-					updatedStudents[i].tags = [e.target.value];
-				} else {
-					updatedStudents[i].tags.push(e.target.value);
+		if (e.key === 'Enter' || e.key === 'Tab') {
+			for (let i = 0; i < updatedStudents.length; i++) {
+				if (studentId == updatedStudents[i].id) {
+					if (updatedStudents[i].tags === undefined) {
+						updatedStudents[i].tags = [this.state.tagValue[studentId]];
+					} else {
+						updatedStudents[i].tags.push(this.state.tagValue[studentId]);
+					}
 				}
 			}
+
+			let tagForStudent = this.state.tagValue;
+			tagForStudent[studentId] = '';
+			this.setState({
+				students: updatedStudents,
+				renderedStudents: updatedStudents,
+				tagValue: tagForStudent
+			});
 		}
-
-		let tagForStudent = this.state.tagValue;
-		tagForStudent[studentId] = '';
-
-		this.setState({
-			students: updatedStudents,
-			renderedStudents: updatedStudents,
-			tagValue: tagForStudent
-		});
 	}
 
+	// CONTROLLED INPUT FOR TAGS
 	handleTagChange(e, studentId) {
 		let tagForStudent = this.state.tagValue;
 		tagForStudent[studentId] = e.target.value;
-		this.setState(
-			{
-				tagValue: tagForStudent
-			},
-			console.log(this.state.tagValue)
-		);
+		this.setState({
+			tagValue: tagForStudent
+		});
 	}
 
 	render() {
 		if (!this.state.students) {
 			return (
-				<div>
-					Loading...or unable to retrieve data from API at this point in
-					time.
+				<div className="loading-text">
+					Beep boop loading...or unable to retrieve data from API at this
+					point in time.
 				</div>
 			);
 		}

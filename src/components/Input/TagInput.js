@@ -10,7 +10,7 @@ export default function TagInput(props) {
 			onChange={(e) => {
 				props.handleChange(e);
 			}}
-			onBlur={(e) => {
+			onKeyPress={(e) => {
 				props.handleBlur(e);
 			}}
 		/>
